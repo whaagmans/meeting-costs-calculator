@@ -46,13 +46,13 @@ export default function Home() {
         <Button onClick={addForm}>Add</Button>
       </div>
       <div className="fixed bottom-12 inset-x-0 flex justify-center">
-        {hasMeetingStarted ? (
-          <Button variant={'highlight'} onClick={toggleEditMode}>
-            Start meeting
-          </Button>
-        ) : (
-          <Button variant={'destructive'} onClick={toggleEditMode}>Cancel</Button>
-        )}
+        <Button
+          size={'lg'}
+          variant={!hasMeetingStarted ? 'destructive' : 'highlight'}
+          onClick={toggleEditMode}
+        >
+          {hasMeetingStarted ? 'Start Meeting' : 'Cancel'}
+        </Button>
       </div>
     </main>
   );
