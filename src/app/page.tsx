@@ -1,7 +1,7 @@
 'use client';
 
-import UserInputCard from '@/components/user-input-card';
-import UserView from '@/components/user-view';
+import UserInputCard from '@/components/user-cards/user-input-card';
+import UserViewCard from '@/components/user-cards/user-view-card';
 import React, { useState } from 'react';
 import type { User } from '@/interfaces/user';
 import { Button } from '@/components/ui/button';
@@ -40,7 +40,7 @@ export default function Home() {
         ))}
         {users.map((user) => (
           <div key={user.id}>
-            <UserView user={user} />
+            <UserViewCard user={user} />
           </div>
         ))}
         <Button onClick={addForm}>Add</Button>

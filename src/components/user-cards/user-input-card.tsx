@@ -22,8 +22,8 @@ import { PayVariant } from '@/enums/PayVariant';
 import { createUser } from '@/factory/user-factory';
 import { X } from 'lucide-react';
 import { useState } from 'react';
-import { Switch } from './ui/switch';
-import { Separator } from './ui/separator';
+import { Switch } from '../ui/switch';
+import { Separator } from '../ui/separator';
 
 const UserInputCard = ({
   formKey,

@@ -4,7 +4,7 @@ import { Card, CardContent, CardHeader, CardTitle } from '@/components/ui/card';
 import { Label } from '@/components/ui/label';
 import { User } from '@/interfaces/user';
 
-const UserView = ({ user }: { user: User }) => {
+const UserViewCard = ({ user }: { user: User }) => {
   return (
     <Card className="w-[350px] my-5">
       <CardHeader>
@@ -28,4 +28,4 @@ const UserView = ({ user }: { user: User }) => {
   );
 };
 
-export default UserView;
+export default UserViewCard;
