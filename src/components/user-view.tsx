@@ -15,10 +15,11 @@ const UserView = ({ user }: { user: User }) => {
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="pay">Your money</Label>
-              <h2
-                id="pay"
-                className="text-xl"
-              >{`$${user.amount} ${user.payVariant}`}</h2>
+              <h2 id="pay" className="text-xl">
+                {!user.isPayHidden
+                  ? `$${user.amount} ${user.payVariant}`
+                  : 'Hidden'}
+              </h2>
             </div>
           </div>
         </form>

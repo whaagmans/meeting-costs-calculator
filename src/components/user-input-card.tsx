@@ -22,6 +22,8 @@ import { PayVariant } from '@/enums/PayVariant';
 import { createUser } from '@/factory/user-factory';
 import { X } from 'lucide-react';
 import { useState } from 'react';
+import { Switch } from './ui/switch';
+import { Separator } from './ui/separator';
 
 const UserInputCard = ({
   formKey,
@@ -32,13 +34,14 @@ const UserInputCard = ({
   addUser: Function;
   removeForm: Function;
 }) => {
-  const [name, setName] = useState<string>();
+  const [name, setName] = useState<string>('');
   const [variant, setVariant] = useState<PayVariant>(PayVariant.MONTH);
-  const [amount, setAmount] = useState<number>();
+  const [amount, setAmount] = useState<string>('');
+  const [isPayHidden, setIsPayHidden] = useState<boolean>(false);
 
   const handleAddUser = () => {
     const id = crypto.randomUUID();
-    const newUser = createUser(id, name, variant, amount);
+    const newUser = createUser(id, name, variant, Number(amount), isPayHidden);
     addUser(newUser);
     removeForm(formKey);
   };
@@ -99,10 +102,20 @@ const UserInputCard = ({
                   id="amount"
                   placeholder="e.g. 18"
                   value={amount}
-                  onChange={(e) => setAmount(Number(e.target.value))}
+                  onChange={(e) => setAmount(e.target.value)}
                 />
               </div>
             </div>
+            <Separator />
+            <div className="flex items-center justify-between">
+              <Label htmlFor="hide-pay">Hide pay</Label>
+              <Switch
+                id="hide-pay"
+                checked={isPayHidden}
+                onCheckedChange={() => setIsPayHidden(!isPayHidden)}
+              />
+            </div>
+            <Separator />
           </div>
         </form>
       </CardContent>
