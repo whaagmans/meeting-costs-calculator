@@ -9,7 +9,7 @@ import { Button } from '@/components/ui/button';
 export default function Home() {
   const [users, setUsers] = useState<Array<User>>([]);
   const [formKeys, setFormKeys] = useState<string[]>([crypto.randomUUID()]);
-  const [editMode, setEditMode] = useState<boolean>(true);
+  const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(true);
 
   const addUser = (user: User): void => {
     setUsers((prevUsers) => [...prevUsers, user]);
@@ -24,7 +24,7 @@ export default function Home() {
   };
 
   const toggleEditMode = () => {
-    setEditMode(!editMode);
+    setHasMeetingStarted(!hasMeetingStarted);
   };
 
   return (
@@ -46,12 +46,12 @@ export default function Home() {
         <Button onClick={addForm}>Add</Button>
       </div>
       <div className="fixed bottom-12 inset-x-0 flex justify-center">
-        {editMode ? (
+        {hasMeetingStarted ? (
           <Button variant={'highlight'} onClick={toggleEditMode}>
             Start meeting
           </Button>
         ) : (
-          <Button onClick={toggleEditMode}>Edit</Button>
+          <Button variant={'destructive'} onClick={toggleEditMode}>Cancel</Button>
         )}
       </div>
     </main>
