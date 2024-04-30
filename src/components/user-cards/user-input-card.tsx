@@ -36,12 +36,20 @@ const UserInputCard = ({
 }) => {
   const [name, setName] = useState<string>('');
   const [variant, setVariant] = useState<PayVariant>(PayVariant.MONTH);
+  const [hoursWorkedPerWeek, setHoursWorkedPerWeek] = useState<string>('40');
   const [amount, setAmount] = useState<string>('');
   const [isPayHidden, setIsPayHidden] = useState<boolean>(false);
 
   const handleAddUser = () => {
     const id = crypto.randomUUID();
-    const newUser = createUser(id, name, variant, Number(amount), isPayHidden);
+    const newUser = createUser(
+      id,
+      name,
+      variant,
+      Number(hoursWorkedPerWeek),
+      Number(amount),
+      isPayHidden,
+    );
     addUser(newUser);
     removeForm(formKey);
   };
@@ -74,6 +82,7 @@ const UserInputCard = ({
                 placeholder="Name of the attendee"
               />
             </div>
+            <Separator />
             <div className="flex space-x-1.5">
               <div>
                 <Label htmlFor="payVariant">Pay iteration</Label>
@@ -106,14 +115,26 @@ const UserInputCard = ({
                 />
               </div>
             </div>
-            <Separator />
-            <div className="flex items-center justify-between">
-              <Label htmlFor="hide-pay">Hide pay</Label>
-              <Switch
-                id="hide-pay"
-                checked={isPayHidden}
-                onCheckedChange={() => setIsPayHidden(!isPayHidden)}
-              />
+            <div className="flex space-x-5">
+              <div>
+                <Label htmlFor="hoursWorked">Hours worked per weeks</Label>
+                <Input
+                  id="hoursWorked"
+                  type="number"
+                  value={hoursWorkedPerWeek}
+                  onChange={(e) => setHoursWorkedPerWeek(e.target.value)}
+                  placeholder="e.g. 36"
+                />
+              </div>
+              <div className="items-center">
+                <Label htmlFor="hide-pay">Hide pay</Label>
+                <Switch
+                  id="hide-pay"
+                  className="mt-2 ml-0 text-right"
+                  checked={isPayHidden}
+                  onCheckedChange={() => setIsPayHidden(!isPayHidden)}
+                />
+              </div>
             </div>
             <Separator />
           </div>

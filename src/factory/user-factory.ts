@@ -7,6 +7,7 @@ export const createUser = (
   id: string = randomUUID(),
   name: string = '',
   payVariant: PayVariant = PayVariant.MONTH,
+  hoursWorkedPerWeek: number = 40,
   amount: number = 0,
   isPayHidden: boolean = false,
 ): User => {
@@ -17,6 +18,7 @@ export const createUser = (
     id,
     name,
     payVariant,
+    hoursWorkedPerWeek,
     amount: parseFloat(amount.toFixed(2)), // ensures amount has two decimal places
     isPayHidden,
   };
