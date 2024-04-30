@@ -7,8 +7,8 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "lint:prettier": "npx prettier . --check",
-    "lint:prettier:write": "npx prettier . --write",
+    "prettier": "npx prettier . --check",
+    "prettier:write": "npx prettier . --write",
     "add-ui": "npx shadcn-ui add"
   },
   "dependencies": {
@@ -16,6 +16,7 @@
     "@radix-ui/react-label": "^2.0.2",
     "@radix-ui/react-select": "^2.0.0",
     "@radix-ui/react-slot": "^1.0.2",
+    "@radix-ui/react-switch": "^1.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
     "lucide-react": "^0.367.0",
