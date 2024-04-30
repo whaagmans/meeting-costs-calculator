@@ -5,11 +5,12 @@ import UserViewCard from '@/components/user-cards/user-view-card';
 import React, { useState } from 'react';
 import type { User } from '@/interfaces/user';
 import { Button } from '@/components/ui/button';
+import MeetingCostCounter from '@/components/meeting-cost-counter';
 
 export default function Home() {
   const [users, setUsers] = useState<Array<User>>([]);
   const [formKeys, setFormKeys] = useState<string[]>([crypto.randomUUID()]);
-  const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(true);
+  const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(false);
 
   const addUser = (user: User): void => {
     setUsers((prevUsers) => [...prevUsers, user]);
@@ -29,6 +30,7 @@ export default function Home() {
 
   return (
     <main>
+      {hasMeetingStarted && <MeetingCostCounter users={users} />}
       <div className="flex min-h-screen items-center align-middle flex-wrap justify-between p-6">
         {formKeys.map((key) => (
           <UserInputCard
@@ -45,15 +47,17 @@ export default function Home() {
         ))}
         <Button onClick={addForm}>Add</Button>
       </div>
-      <div className="fixed bottom-12 inset-x-0 flex justify-center">
-        <Button
-          size={'lg'}
-          variant={!hasMeetingStarted ? 'destructive' : 'highlight'}
-          onClick={toggleEditMode}
-        >
-          {hasMeetingStarted ? 'Start Meeting' : 'Cancel'}
-        </Button>
-      </div>
+      {users.length > 0 && (
+        <div className="fixed bottom-12 inset-x-0 flex justify-center">
+          <Button
+            size={'lg'}
+            variant={!hasMeetingStarted ? 'default' : 'destructive'}
+            onClick={toggleEditMode}
+          >
+            {hasMeetingStarted ? 'Cancel' : 'Start Meeting'}
+          </Button>
+        </div>
+      )}
     </main>
   );
 }
