@@ -5,10 +5,13 @@ import { randomNameGenerator } from '@/lib/generate-random-username';
 
 export const createUser = (
   id: string = randomUUID(),
-  name: string = randomNameGenerator(),
+  name: string,
   payVariant: PayVariant = PayVariant.MONTH,
   amount: number = 0,
 ): User => {
+  if (!name) {
+    name = randomNameGenerator();
+  }
   return {
     id,
     name,
