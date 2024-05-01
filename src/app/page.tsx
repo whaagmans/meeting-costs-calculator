@@ -45,7 +45,11 @@ export default function Home() {
             <UserViewCard user={user} />
           </div>
         ))}
-        <Button onClick={addForm}>Add</Button>
+        {!hasMeetingStarted && (
+          <Button disabled={hasMeetingStarted} onClick={addForm}>
+            Add
+          </Button>
+        )}
       </div>
       {users.length > 0 && (
         <div className="fixed bottom-12 inset-x-0 flex justify-center">
