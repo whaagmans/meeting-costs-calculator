@@ -44,7 +44,8 @@ const MeetingCostCounter = ({ users }: { users: User[] }) => {
     return () => clearInterval(countWastedAmountInterval);
   }, [wastedAmount, totalPayRatePerSecond]);
   return (
-    <div>
+    <div className="text-4xl py-4 px-6 flex items-center">
+      <span className="align-middle">$</span>
       <SlotCounter value={wastedAmount.toFixed(2)} />
     </div>
   );

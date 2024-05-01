@@ -29,8 +29,12 @@ export default function Home() {
   };
 
   return (
-    <main>
-      {hasMeetingStarted && <MeetingCostCounter users={users} />}
+    <main className="relative">
+      {hasMeetingStarted && (
+        <div className="absolute inset-x-0 top-1/3 flex justify-center">
+          <MeetingCostCounter users={users} />
+        </div>
+      )}
       <div className="flex min-h-screen items-center align-middle flex-wrap justify-between p-6">
         {formKeys.map((key) => (
           <UserInputCard
