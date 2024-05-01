@@ -6,6 +6,7 @@ import React, { useState } from 'react';
 import type { User } from '@/interfaces/user';
 import { Button } from '@/components/ui/button';
 import MeetingCostCounter from '@/components/meeting-cost-counter';
+import { UserPlus } from 'lucide-react';
 
 export default function Home() {
   const [users, setUsers] = useState<Array<User>>([]);
@@ -13,7 +14,7 @@ export default function Home() {
   const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(false);
 
   const addUser = (user: User): void => {
-    setUsers((prevUsers) => [...prevUsers, user]);
+    setUsers((prevUsers) => [user, ...prevUsers]);
   };
 
   const addForm = (): void => {
@@ -35,7 +36,7 @@ export default function Home() {
           <MeetingCostCounter users={users} />
         </div>
       )}
-      <div className="flex min-h-screen items-center align-middle flex-wrap justify-between p-6">
+      <div className="flex min-h-screen items-center align-middle flex-wrap space-x-5 p-6">
         {formKeys.map((key) => (
           <UserInputCard
             key={key}
@@ -49,14 +50,9 @@ export default function Home() {
             <UserViewCard user={user} />
           </div>
         ))}
-        {!hasMeetingStarted && (
-          <Button disabled={hasMeetingStarted} onClick={addForm}>
-            Add
-          </Button>
-        )}
       </div>
-      {users.length > 0 && (
-        <div className="fixed bottom-12 inset-x-0 flex justify-center">
+      <div className="fixed bottom-12 inset-x-0 space-x-6 flex justify-center">
+        {users.length > 0 && (
           <Button
             size={'lg'}
             variant={!hasMeetingStarted ? 'default' : 'destructive'}
@@ -64,8 +60,17 @@ export default function Home() {
           >
             {hasMeetingStarted ? 'Cancel' : 'Start Meeting'}
           </Button>
-        </div>
-      )}
+        )}
+        <Button
+          size={'lg'}
+          variant={'success'}
+          disabled={hasMeetingStarted}
+          onClick={addForm}
+        >
+          <UserPlus className="mr-2 h-5 w-5" />
+          Add user
+        </Button>
+      </div>
     </main>
   );
 }
