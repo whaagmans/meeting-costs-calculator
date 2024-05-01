@@ -63,6 +63,7 @@ const UserInputCard = ({
         <Button
           onClick={() => removeForm(formKey)}
           className="shrink-0 mt-2 mr-2"
+          aria-label="Remove form"
           variant={'ghost'}
           size={'icon'}
         >
@@ -85,12 +86,21 @@ const UserInputCard = ({
             <Separator />
             <div className="flex space-x-1.5">
               <div>
-                <Label htmlFor="payVariant">Pay iteration</Label>
+                <Label
+                  id="pay-iteration-label"
+                  htmlFor="payVariant"
+                  aria-label="Pay iteration"
+                >
+                  Pay iteration
+                </Label>
                 <Select
                   onValueChange={(e) => setVariant(e as PayVariant)}
                   defaultValue={variant}
                 >
-                  <SelectTrigger className="w-[180px]">
+                  <SelectTrigger
+                    className="w-[180px]"
+                    aria-labelledby="pay-iteration-label"
+                  >
                     <SelectValue placeholder="Select a variant" />
                   </SelectTrigger>
                   <SelectContent>
@@ -127,9 +137,16 @@ const UserInputCard = ({
                 />
               </div>
               <div className="items-center">
-                <Label htmlFor="hide-pay">Hide pay</Label>
+                <Label
+                  id="hide-pay-label"
+                  aria-label="Hide pay"
+                  htmlFor="hide-pay"
+                >
+                  Hide pay
+                </Label>
                 <Switch
                   id="hide-pay"
+                  aria-labelledby="hide-pay-label"
                   className="mt-2 ml-0 text-right"
                   checked={isPayHidden}
                   onCheckedChange={() => setIsPayHidden(!isPayHidden)}
