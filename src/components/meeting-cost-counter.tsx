@@ -1,33 +1,18 @@
 'use client';
 
-import { PayVariant } from '@/enums/PayVariant';
 import { User } from '@/interfaces/user';
+import { salaryPerSecond } from '@/lib/calcuate-salary';
 import { useEffect, useState } from 'react';
 import SlotCounter from 'react-slot-counter';
 
-const calculatePayRatePerSecond = (users: User[]) => {
-  const MONTHS_PER_YEAR = 12;
-  const SECONDS_PER_HOUR = 3600;
+const calculateTotalSalaryPerSecond = (users: User[]) => {
   let totalPayPerSecond = 0;
   users.forEach((user) => {
-    const workedHoursPerMonth = user.hoursWorkedPerWeek * 4;
-    switch (user.payVariant) {
-      case PayVariant.HOUR: {
-        totalPayPerSecond += user.amount / SECONDS_PER_HOUR;
-        break;
-      }
-      case PayVariant.MONTH: {
-        totalPayPerSecond +=
-          user.amount / workedHoursPerMonth / SECONDS_PER_HOUR;
-        break;
-      }
-      case PayVariant.YEAR: {
-        const workedHoursPerYear = workedHoursPerMonth * MONTHS_PER_YEAR;
-        totalPayPerSecond +=
-          user.amount / workedHoursPerYear / SECONDS_PER_HOUR;
-        break;
-      }
-    }
+    totalPayPerSecond += salaryPerSecond(
+      user.amount,
+      user.payVariant,
+      user.hoursWorkedPerWeek,
+    );
   });
   return totalPayPerSecond;
 };
@@ -35,7 +20,7 @@ const calculatePayRatePerSecond = (users: User[]) => {
 const MeetingCostCounter = ({ users }: { users: User[] }) => {
   const [wastedAmount, setWastedAmount] = useState<number>(0);
 
-  const totalPayRatePerSecond = Number(calculatePayRatePerSecond(users));
+  const totalPayRatePerSecond = Number(calculateTotalSalaryPerSecond(users));
 
   useEffect(() => {
     const countWastedAmountInterval = setInterval(() => {
