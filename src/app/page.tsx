@@ -7,6 +7,7 @@ import type { User } from '@/interfaces/user';
 import { Button } from '@/components/ui/button';
 import MeetingCostCounter from '@/components/meeting-cost-counter';
 import { UserPlus } from 'lucide-react';
+import { Stopwatch } from '@/components/stopwatch';
 
 export default function Home() {
   const [users, setUsers] = useState<Array<User>>([]);
@@ -32,8 +33,13 @@ export default function Home() {
   return (
     <main className="relative">
       {hasMeetingStarted && (
-        <div className="absolute inset-x-0 top-1/3 flex justify-center">
-          <MeetingCostCounter users={users} />
+        <div>
+          <div className='absolute inset-x-0 flex justify-center mt-10'>
+            <Stopwatch />
+          </div>
+          <div className="absolute inset-x-0 top-1/3 flex justify-center">
+            <MeetingCostCounter users={users} />
+          </div>
         </div>
       )}
       <div className="flex min-h-screen items-center align-middle flex-wrap space-x-5 p-6">
