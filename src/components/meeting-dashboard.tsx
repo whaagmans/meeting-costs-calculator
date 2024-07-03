@@ -65,24 +65,28 @@ const MeetingDashboard = () => {
         ))}
       </div>
       <div className="fixed bottom-12 inset-x-0 space-x-6 flex justify-center">
-        {users.length > 0 && (
-          <Button
-            size={'lg'}
-            variant={!hasMeetingStarted ? 'default' : 'destructive'}
-            onClick={toggleEditMode}
-          >
-            {hasMeetingStarted ? 'Cancel' : 'Start Meeting'}
-          </Button>
+        {!hasMeetingStarted && (
+          <>
+            <Button
+              className={timeElapsed > 0 ? '' : 'hidden'}
+              variant={'destructive'}
+              size={'lg'}
+              onClick={reset}
+            >
+              Reset
+            </Button>
+            <Button
+              className={hasMeetingStarted ? 'hidden' : ''}
+              size={'lg'}
+              variant={'success'}
+              disabled={hasMeetingStarted}
+              onClick={addForm}
+            >
+              <UserPlus className="mr-2 h-5 w-5" />
+              Add user
+            </Button>
+          </>
         )}
-        <Button
-          size={'lg'}
-          variant={'success'}
-          disabled={hasMeetingStarted}
-          onClick={addForm}
-        >
-          <UserPlus className="mr-2 h-5 w-5" />
-          Add user
-        </Button>
       </div>
     </div>
   );
