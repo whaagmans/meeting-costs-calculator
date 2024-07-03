@@ -11,7 +11,7 @@ import UserViewCard from './user-cards/user-view-card';
 import { useStopwatch } from './useStopwatch';
 
 const MeetingDashboard = () => {
-  const { pause, start, isRunning } = useStopwatch();
+  const { pause, start, reset, isRunning, timeElapsed } = useStopwatch();
   const [users, setUsers] = useState<Array<User>>([]);
   const [formKeys, setFormKeys] = useState<string[]>([crypto.randomUUID()]);
   const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(false);
@@ -35,6 +35,26 @@ const MeetingDashboard = () => {
       pause();
     }
     setHasMeetingStarted(!hasMeetingStarted);
+  };
+
+  const renderStopStartMeetingButton = () => {
+    let text;
+    if (hasMeetingStarted) {
+      text = 'Stop';
+    } else if (timeElapsed <= 0) {
+      text = 'Start';
+    } else {
+      text = 'Resume';
+    }
+    return (
+      <Button
+        size={'lg'}
+        variant={!hasMeetingStarted ? 'default' : 'destructive'}
+        onClick={toggleEditMode}
+      >
+        {text}
+      </Button>
+    );
   };
 
   return (
@@ -65,6 +85,7 @@ const MeetingDashboard = () => {
         ))}
       </div>
       <div className="fixed bottom-12 inset-x-0 space-x-6 flex justify-center">
+        {users.length > 0 && renderStopStartMeetingButton()}
         {!hasMeetingStarted && (
           <>
             <Button
