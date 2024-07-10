@@ -1,8 +1,10 @@
 import {
   type ReactNode,
   createContext,
+  useCallback,
   useContext,
   useEffect,
+  useMemo,
   useRef,
   useState,
 } from 'react';
@@ -52,28 +54,37 @@ export const StopwatchProvider = ({ children }: { children: ReactNode }) => {
     };
   }, [isRunning]);
 
-  const start = () => {
+  const start = useCallback(() => {
     setIsRunning(true);
-  };
+  }, []);
 
-  const pause = () => {
+  const pause = useCallback(() => {
     if (isRunning) {
       accumulatedTimeRef.current += Date.now() - startTimeRef.current!;
       setIsRunning(false);
     }
-  };
+  }, [isRunning]);
 
-  const reset = () => {
+  const reset = useCallback(() => {
     setIsRunning(false);
     setTimeElapsed(0);
     accumulatedTimeRef.current = 0;
     startTimeRef.current = null;
-  };
+  }, []);
+
+  const contextValue = useMemo(
+    () => ({
+      timeElapsed,
+      isRunning,
+      start,
+      pause,
+      reset,
+    }),
+    [timeElapsed, isRunning, start, pause, reset],
+  );
 
   return (
-    <StopwatchContext.Provider
-      value={{ timeElapsed, isRunning, start, pause, reset }}
-    >
+    <StopwatchContext.Provider value={contextValue}>
       {children}
     </StopwatchContext.Provider>
   );

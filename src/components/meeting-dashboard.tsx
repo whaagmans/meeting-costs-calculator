@@ -11,7 +11,7 @@ import UserViewCard from './user-cards/user-view-card';
 import { useStopwatch } from './useStopwatch';
 
 const MeetingDashboard = () => {
-  const { pause, start, isRunning } = useStopwatch();
+  const { pause, start, reset, isRunning, timeElapsed } = useStopwatch();
   const [users, setUsers] = useState<Array<User>>([]);
   const [formKeys, setFormKeys] = useState<string[]>([crypto.randomUUID()]);
   const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(false);
@@ -37,9 +37,29 @@ const MeetingDashboard = () => {
     setHasMeetingStarted(!hasMeetingStarted);
   };
 
+  const renderStopStartMeetingButton = () => {
+    let text;
+    if (hasMeetingStarted) {
+      text = 'Stop';
+    } else if (timeElapsed <= 0) {
+      text = 'Start';
+    } else {
+      text = 'Resume';
+    }
+    return (
+      <Button
+        size={'lg'}
+        variant={!hasMeetingStarted ? 'default' : 'destructive'}
+        onClick={toggleEditMode}
+      >
+        {text}
+      </Button>
+    );
+  };
+
   return (
     <div>
-      {hasMeetingStarted && (
+      {(hasMeetingStarted || timeElapsed > 0) && (
         <div>
           <div className="absolute inset-x-0 flex justify-center mt-10">
             <Stopwatch />
@@ -65,24 +85,29 @@ const MeetingDashboard = () => {
         ))}
       </div>
       <div className="fixed bottom-12 inset-x-0 space-x-6 flex justify-center">
-        {users.length > 0 && (
-          <Button
-            size={'lg'}
-            variant={!hasMeetingStarted ? 'default' : 'destructive'}
-            onClick={toggleEditMode}
-          >
-            {hasMeetingStarted ? 'Cancel' : 'Start Meeting'}
-          </Button>
+        {users.length > 0 && renderStopStartMeetingButton()}
+        {!hasMeetingStarted && (
+          <>
+            <Button
+              className={timeElapsed > 0 ? '' : 'hidden'}
+              variant={'destructive'}
+              size={'lg'}
+              onClick={reset}
+            >
+              Reset
+            </Button>
+            <Button
+              className={hasMeetingStarted ? 'hidden' : ''}
+              size={'lg'}
+              variant={'success'}
+              disabled={hasMeetingStarted}
+              onClick={addForm}
+            >
+              <UserPlus className="mr-2 h-5 w-5" />
+              Add user
+            </Button>
+          </>
         )}
-        <Button
-          size={'lg'}
-          variant={'success'}
-          disabled={hasMeetingStarted}
-          onClick={addForm}
-        >
-          <UserPlus className="mr-2 h-5 w-5" />
-          Add user
-        </Button>
       </div>
     </div>
   );
