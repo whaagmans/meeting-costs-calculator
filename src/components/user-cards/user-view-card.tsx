@@ -31,7 +31,10 @@ const UserViewCard = ({ user }: { user: User }) => {
               <h2 id="pay" className="text-xl">
                 {!isPayHidden ? `$${amount} ${payVariant}` : 'Hidden'}
               </h2>
-              <SlotCounter value={moneyWasted.toFixed(2)} />
+              <div>
+                <span>Cost: $</span>
+                <SlotCounter value={moneyWasted.toFixed(2)} />
+              </div>
             </div>
           </div>
         </form>
