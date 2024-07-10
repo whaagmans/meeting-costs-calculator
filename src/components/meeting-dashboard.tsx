@@ -59,7 +59,7 @@ const MeetingDashboard = () => {
 
   return (
     <div>
-      {hasMeetingStarted && (
+      {(hasMeetingStarted || timeElapsed > 0) && (
         <div>
           <div className="absolute inset-x-0 flex justify-center mt-10">
             <Stopwatch />
