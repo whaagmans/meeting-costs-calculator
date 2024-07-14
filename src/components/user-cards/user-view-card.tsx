@@ -18,7 +18,7 @@ const UserViewCard = ({
   editUser: Function;
 }) => {
   const { name, amount, payVariant, hoursWorkedPerWeek, isPayHidden } = user;
-  const { timeElapsed } = useStopwatch();
+  const { timeElapsed, isRunning } = useStopwatch();
   const [moneyWasted, setMoneyWasted] = useState<number>(0);
   const payPerSecond = salaryPerSecond(amount, payVariant, hoursWorkedPerWeek);
 
@@ -33,9 +33,10 @@ const UserViewCard = ({
           <CardTitle>{name}</CardTitle>
         </CardHeader>
         <Button
-          className="shrink-0 mt-2 mr-2"
+          className={`shrink-0 mt-2 mr-2 ${isRunning ? 'hidden' : ''}`}
           aria-label="edit user information"
           variant={'ghost'}
+          disabled={isRunning}
           size={'icon'}
           onClick={() => editUser(user)}
         >
