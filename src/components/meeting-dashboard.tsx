@@ -88,11 +88,12 @@ const MeetingDashboard = () => {
             formKey={form.key}
             addUser={addUser}
             removeForm={removeForm}
+            user={form.user}
           />
         ))}
         {users.map((user) => (
           <div key={user.id}>
-            <UserViewCard user={user} />
+            <UserViewCard user={user} editUser={editUser} />
           </div>
         ))}
       </div>

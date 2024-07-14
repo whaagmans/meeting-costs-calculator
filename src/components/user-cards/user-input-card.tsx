@@ -24,21 +24,30 @@ import { X } from 'lucide-react';
 import { useState } from 'react';
 import { Switch } from '../ui/switch';
 import { Separator } from '../ui/separator';
+import { User } from '@/interfaces/user';
 
 const UserInputCard = ({
   formKey,
   addUser,
   removeForm,
+  user,
 }: {
   formKey: string;
   addUser: Function;
   removeForm: Function;
+  user?: User;
 }) => {
-  const [name, setName] = useState<string>('');
-  const [variant, setVariant] = useState<PayVariant>(PayVariant.MONTH);
-  const [hoursWorkedPerWeek, setHoursWorkedPerWeek] = useState<string>('40');
-  const [amount, setAmount] = useState<string>('');
-  const [isPayHidden, setIsPayHidden] = useState<boolean>(false);
+  const [name, setName] = useState<string>(user?.name || '');
+  const [variant, setVariant] = useState<PayVariant>(
+    user?.payVariant || PayVariant.MONTH,
+  );
+  const [hoursWorkedPerWeek, setHoursWorkedPerWeek] = useState<string>(
+    user?.hoursWorkedPerWeek.toString() || '40',
+  );
+  const [amount, setAmount] = useState<string>(user?.amount.toString() || '');
+  const [isPayHidden, setIsPayHidden] = useState<boolean>(
+    user?.isPayHidden || false,
+  );
 
   const handleAddUser = () => {
     const id = crypto.randomUUID();
