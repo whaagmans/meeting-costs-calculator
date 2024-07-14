@@ -1,6 +1,7 @@
 'use client';
 
-import { User } from '@/interfaces/user';
+import type { User } from '@/interfaces/user';
+import type { Form } from '@/types/form';
 import { UserPlus } from 'lucide-react';
 import { useState } from 'react';
 import MeetingCostCounter from './meeting-cost-counter';
@@ -13,19 +14,30 @@ import { useStopwatch } from './useStopwatch';
 const MeetingDashboard = () => {
   const { pause, start, reset, isRunning, timeElapsed } = useStopwatch();
   const [users, setUsers] = useState<Array<User>>([]);
-  const [formKeys, setFormKeys] = useState<string[]>([crypto.randomUUID()]);
+  const [forms, setForms] = useState<Form[]>([{ key: crypto.randomUUID() }]);
   const [hasMeetingStarted, setHasMeetingStarted] = useState<boolean>(false);
 
   const addUser = (user: User): void => {
     setUsers((prevUsers) => [user, ...prevUsers]);
   };
 
-  const addForm = (): void => {
-    setFormKeys((prevKeys) => [...prevKeys, crypto.randomUUID()]);
+  const removeUser = (userId: string): void => {
+    setUsers((prevUsers) => prevUsers.filter((user) => user.id !== userId));
+  };
+
+  const editUser = (user: User): void => {
+    addForm(user);
+    removeUser(user.id);
+  };
+
+  const addForm = (user?: User): void => {
+    setForms((prevForms) => [...prevForms, { key: crypto.randomUUID(), user }]);
   };
 
   const removeForm = (keyToRemove: string): void => {
-    setFormKeys((prevKeys) => prevKeys.filter((key) => key !== keyToRemove));
+    setForms((prevForms) =>
+      prevForms.filter((form) => form.key !== keyToRemove),
+    );
   };
 
   const toggleEditMode = () => {
@@ -70,17 +82,18 @@ const MeetingDashboard = () => {
         </div>
       )}
       <div className="flex min-h-screen items-center align-middle flex-wrap space-x-5 p-6">
-        {formKeys.map((key) => (
+        {forms.map((form) => (
           <UserInputCard
-            key={key}
-            formKey={key}
+            key={form.key}
+            formKey={form.key}
             addUser={addUser}
             removeForm={removeForm}
+            user={form.user}
           />
         ))}
         {users.map((user) => (
           <div key={user.id}>
-            <UserViewCard user={user} />
+            <UserViewCard user={user} editUser={editUser} />
           </div>
         ))}
       </div>
@@ -101,7 +114,7 @@ const MeetingDashboard = () => {
               size={'lg'}
               variant={'success'}
               disabled={hasMeetingStarted}
-              onClick={addForm}
+              onClick={() => addForm()}
             >
               <UserPlus className="mr-2 h-5 w-5" />
               Add user
