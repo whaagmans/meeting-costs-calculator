@@ -1,36 +1,92 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+# 💰 Meeting Costs Calculator
 
-## Getting Started
+## 📢 What's This?
 
-First, run the development server:
+Welcome to **Meeting Costs Calculator**, a side project designed to help visualize the financial impact of meetings. Ever sat in a meeting and thought, *is this worth the cost?* Now, you can track how much time (and money) is spent in real-time.
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+## ✨ Features
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+- Add attendees along with their salaries.
+- Choose different pay structures (hourly, monthly, etc.).
+- Automatically calculate the total meeting cost.
+- Option to hide salary details for privacy.
+- Clean and intuitive UI with dark mode support.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## 🚀 How to Use
 
-This project uses [`next/font`](https://nextjs.org/docs/basic-features/font-optimization) to automatically optimize and load Inter, a custom Google Font.
+1. **Add Attendees**: Click the **Add user** button and input their details.
+2. **Enter Salary Details**: Choose pay iteration and amount.
+3. **Set Work Hours**: Adjust weekly hours for accuracy.
+4. **Track Costs**: Watch the meeting expenses increase in real-time.
 
-## Learn More
+## 🛠 Tech Stack
 
-To learn more about Next.js, take a look at the following resources:
+- **Frontend:** Next.js / TypeScript
+- **Styling:** Tailwind CSS / Shadcn/ui
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## 🔧 Installation
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
+### Prerequisites
 
-## Deploy on Vercel
+- Node.js & npm installed
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+### Setup Steps
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
+1. Clone the repository:
+
+   ```bash
+   git clone https://github.com/yourusername/meeting-costs-calculator.git
+   ```
+
+2. Navigate to the project directory:
+
+   ```bash
+   cd meeting-costs-calculator
+   ```
+
+3. Install dependencies:
+
+   ```bash
+   npm install
+   ```
+
+4. Start the development server:
+
+   ```bash
+   npm run dev
+   ```
+
+## 🔗 Backend Repository
+
+A backend for this project is in development and can be found here:
+[Meeting Costs Calculator API](https://github.com/whaagmans/meeting-costs-calculator-api)
+
+## 🔮 Future Features
+
+Here are some planned features that will be implemented in future updates:
+
+- Integration with the backend for persistent data storage.
+- Dark mode toggle for improved accessibility.
+- User-created meeting rooms with sharable links (passwords optional).
+- Attendees can add their own salary information to keep it private.
+- Real-time updates through WebSockets to reflect changes instantly.
+- Ability to pause and continue meetings persistently, with room data saved in the database.
+
+## 🤝 Contributing
+
+Contributions are welcome! Follow these steps:
+
+1. **Fork the repository**.
+2. **Create a new branch**: `git checkout -b feature-name`.
+3. **Make your changes**.
+4. **Push to your branch**: `git push origin feature-name`.
+5. **Submit a pull request**.
+
+## 📜 License
+
+This project is under the MIT License, meaning you can use it freely.
+
+---
+
+🚀 **Try it out and start tracking your meeting costs!**
+
