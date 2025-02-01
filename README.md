@@ -44,13 +44,19 @@ Welcome to **Meeting Costs Calculator**, a side project designed to help visuali
    cd meeting-costs-calculator
    ```
 
-3. Install dependencies:
+3. Ensure you're using the correct Node.js version:
+
+   ```bash
+   nvm use
+   ```
+
+4. Install dependencies:
 
    ```bash
    npm install
    ```
 
-4. Start the development server:
+5. Start the development server:
 
    ```bash
    npm run dev
