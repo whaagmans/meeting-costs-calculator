@@ -2,6 +2,16 @@
   "name": "meeting-costs-calculator",
   "version": "0.1.0",
   "private": true,
+  "author": "whaagmans",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/whaagmans/meeting-costs-calculator.git"
+  },
+  "bugs": {
+    "url": "https://github.com/whaagmans/meeting-costs-calculator/issues"
+  },
+  "homepage": "https://github.com/whaagmans/meeting-costs-calculator#readme",
+
   "scripts": {
     "dev": "next dev",
     "build": "next build",
