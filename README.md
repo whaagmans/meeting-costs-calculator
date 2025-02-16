@@ -1,5 +1,10 @@
 # 💰 Meeting Costs Calculator
 
+[![Quality Gate Status](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator&metric=alert_status)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator)
+[![Bugs](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator&metric=bugs)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator)
+[![Code Smells](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator&metric=code_smells)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator)
+[![Duplicated Lines (%)](https://sonarcloud.io/api/project_badges/measure?project=whaagmans_meeting-costs-calculator&metric=duplicated_lines_density)](https://sonarcloud.io/summary/new_code?id=whaagmans_meeting-costs-calculator)
+
 ## 📢 What's This?
 
 Welcome to **Meeting Costs Calculator**, a side project designed to help visualize the financial impact of meetings. Ever sat in a meeting and thought, *is this worth the cost?* Now, you can track how much time (and money) is spent in real-time.
@@ -95,4 +100,3 @@ This project is under the MIT License, meaning you can use it freely.
 ---
 
 🚀 **Try it out and start tracking your meeting costs!**
-
