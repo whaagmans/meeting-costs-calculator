@@ -1,9 +1,9 @@
-import { PayVariant } from '@/enums/PayVariant';
+import { PaymentInterval } from '@/enums/PaymentInterval';
 
 export interface User {
   id: string;
   name: string;
-  payVariant: PayVariant;
+  payVariant: PaymentInterval;
   hoursWorkedPerWeek: number;
   amount: number;
   isPayHidden: boolean;

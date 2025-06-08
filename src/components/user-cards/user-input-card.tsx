@@ -18,7 +18,7 @@ import {
   SelectTrigger,
   SelectValue,
 } from '@/components/ui/select';
-import { PayVariant } from '@/enums/PayVariant';
+import { PaymentInterval } from '@/enums/PaymentInterval';
 import { createUser } from '@/factory/user-factory';
 import { X } from 'lucide-react';
 import { useState } from 'react';
@@ -38,15 +38,15 @@ const UserInputCard = ({
   user?: User;
 }) => {
   const [name, setName] = useState<string>(user?.name || '');
-  const [variant, setVariant] = useState<PayVariant>(
-    user?.payVariant || PayVariant.MONTH,
+  const [variant, setVariant] = useState<PaymentInterval>(
+    user?.payVariant || PaymentInterval.MONTH
   );
   const [hoursWorkedPerWeek, setHoursWorkedPerWeek] = useState<string>(
-    user?.hoursWorkedPerWeek.toString() || '40',
+    user?.hoursWorkedPerWeek.toString() || '40'
   );
   const [amount, setAmount] = useState<string>(user?.amount.toString() || '');
   const [isPayHidden, setIsPayHidden] = useState<boolean>(
-    user?.isPayHidden || false,
+    user?.isPayHidden || false
   );
 
   const handleAddUser = () => {
@@ -57,7 +57,7 @@ const UserInputCard = ({
       variant,
       Number(hoursWorkedPerWeek),
       Number(amount),
-      isPayHidden,
+      isPayHidden
     );
     addUser(newUser);
     removeForm(formKey);
@@ -103,7 +103,7 @@ const UserInputCard = ({
                   Pay iteration
                 </Label>
                 <Select
-                  onValueChange={(e) => setVariant(e as PayVariant)}
+                  onValueChange={(e) => setVariant(e as PaymentInterval)}
                   defaultValue={variant}
                 >
                   <SelectTrigger
@@ -114,7 +114,7 @@ const UserInputCard = ({
                   </SelectTrigger>
                   <SelectContent>
                     <SelectGroup>
-                      {Object.values(PayVariant).map((payVariant) => (
+                      {Object.values(PaymentInterval).map((payVariant) => (
                         <SelectItem key={payVariant} value={payVariant}>
                           {payVariant}
                         </SelectItem>
@@ -136,7 +136,7 @@ const UserInputCard = ({
             </div>
             <div className="flex space-x-5">
               <div>
-                <Label htmlFor="hoursWorked">Hours worked per weeks</Label>
+                <Label htmlFor="hoursWorked">Hours worked per week</Label>
                 <Input
                   id="hoursWorked"
                   type="number"
@@ -167,7 +167,9 @@ const UserInputCard = ({
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline">Cancel</Button>
+        <Button variant="outline" onClick={() => removeForm(formKey)}>
+          Cancel
+        </Button>
         <Button onClick={handleAddUser}>Add</Button>
       </CardFooter>
     </Card>
