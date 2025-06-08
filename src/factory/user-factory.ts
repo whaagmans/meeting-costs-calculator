@@ -1,12 +1,12 @@
 import { User } from '@/interfaces/user';
-import { PayVariant } from '../enums/PayVariant';
+import { PaymentInterval } from '../enums/PaymentInterval';
 import { randomUUID } from 'crypto';
 import { randomNameGenerator } from '@/lib/generate-random-username';
 
 export const createUser = (
   id: string = randomUUID(),
   name: string = '',
-  payVariant: PayVariant = PayVariant.MONTH,
+  payVariant: PaymentInterval = PaymentInterval.MONTH,
   hoursWorkedPerWeek: number = 40,
   amount: number = 0,
   isPayHidden: boolean = false,
