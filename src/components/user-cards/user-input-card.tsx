@@ -25,6 +25,7 @@ import { useState } from 'react';
 import { Switch } from '../ui/switch';
 import { Separator } from '../ui/separator';
 import { User } from '@/interfaces/user';
+import { motion } from 'framer-motion';
 
 const UserInputCard = ({
   formKey,
@@ -63,13 +64,23 @@ const UserInputCard = ({
     removeForm(formKey);
   };
 
+  const isAddDisabled =
+    !name.trim() || Number(amount) <= 0 || Number(hoursWorkedPerWeek) <= 0;
+
   return (
-    <Card className="w-[350px] my-5">
-      <div className="flex justify-around">
-        <CardHeader>
-          <CardTitle>Add meeting attender</CardTitle>
-        </CardHeader>
-        <Button
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.25 }}
+    >
+      <Card className="w-[350px] my-5 shadow-lg shadow-primary/10 transition-all hover:-translate-y-1 hover:shadow-primary/20">
+        <div className="flex justify-around">
+          <CardHeader>
+            <CardTitle>Add meeting attender</CardTitle>
+          </CardHeader>
+          <Button
           onClick={() => removeForm(formKey)}
           className="shrink-0 mt-2 mr-2"
           aria-label="Remove form"
@@ -167,12 +178,23 @@ const UserInputCard = ({
         </form>
       </CardContent>
       <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => removeForm(formKey)}>
+        <Button
+          variant="outline"
+          onClick={() => removeForm(formKey)}
+          className="transition-transform hover:-translate-y-0.5"
+        >
           Cancel
         </Button>
-        <Button onClick={handleAddUser}>Add</Button>
+        <Button
+          onClick={handleAddUser}
+          disabled={isAddDisabled}
+          className="transition-transform hover:-translate-y-0.5 disabled:opacity-50"
+        >
+          Add
+        </Button>
       </CardFooter>
-    </Card>
+      </Card>
+    </motion.div>
   );
 };
 
