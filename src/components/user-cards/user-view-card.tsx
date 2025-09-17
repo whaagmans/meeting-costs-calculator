@@ -9,6 +9,7 @@ import { useStopwatch } from '@/components/useStopwatch';
 import SlotCounter from 'react-slot-counter';
 import { Button } from '../ui/button';
 import { Pencil } from 'lucide-react';
+import { motion } from 'framer-motion';
 
 const UserViewCard = ({
   user,
@@ -27,40 +28,48 @@ const UserViewCard = ({
   }, [payPerSecond, timeElapsed]);
 
   return (
-    <Card className="w-[350px] my-5">
-      <div className="flex justify-between">
-        <CardHeader>
-          <CardTitle>{name}</CardTitle>
-        </CardHeader>
-        <Button
-          className={`shrink-0 mt-2 mr-2 ${isRunning ? 'hidden' : ''}`}
-          aria-label="edit user information"
-          variant={'ghost'}
-          disabled={isRunning}
-          size={'icon'}
-          onClick={() => editUser(user)}
-        >
-          <Pencil className="h-4 w-4" />
-        </Button>
-      </div>
+    <motion.div
+      layout
+      initial={{ opacity: 0, y: 16 }}
+      animate={{ opacity: 1, y: 0 }}
+      exit={{ opacity: 0, y: -16 }}
+      transition={{ duration: 0.25 }}
+    >
+      <Card className="w-[350px] my-5 border-primary/20 bg-background/80 shadow-lg shadow-primary/10 backdrop-blur">
+        <div className="flex justify-between">
+          <CardHeader>
+            <CardTitle>{name}</CardTitle>
+          </CardHeader>
+          <Button
+            className={`shrink-0 mt-2 mr-2 ${isRunning ? 'hidden' : ''}`}
+            aria-label="edit user information"
+            variant={'ghost'}
+            disabled={isRunning}
+            size={'icon'}
+            onClick={() => editUser(user)}
+          >
+            <Pencil className="h-4 w-4" />
+          </Button>
+        </div>
 
-      <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="pay">Your money</Label>
-              <h2 id="pay" className="text-xl">
-                {!isPayHidden ? `$${amount} ${payVariant}` : 'Hidden'}
-              </h2>
-              <div>
-                <span>Cost: $</span>
-                <SlotCounter value={moneyWasted.toFixed(2)} />
+        <CardContent>
+          <form>
+            <div className="grid w-full items-center gap-4">
+              <div className="flex flex-col space-y-1.5">
+                <Label htmlFor="pay">Your money</Label>
+                <h2 id="pay" className="text-xl">
+                  {!isPayHidden ? `$${amount} ${payVariant}` : 'Hidden'}
+                </h2>
+                <div>
+                  <span>Cost: $</span>
+                  <SlotCounter value={moneyWasted.toFixed(2)} />
+                </div>
               </div>
             </div>
-          </div>
-        </form>
-      </CardContent>
-    </Card>
+          </form>
+        </CardContent>
+      </Card>
+    </motion.div>
   );
 };
 

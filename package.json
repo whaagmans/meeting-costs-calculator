@@ -11,7 +11,6 @@
     "url": "https://github.com/whaagmans/meeting-costs-calculator/issues"
   },
   "homepage": "https://github.com/whaagmans/meeting-costs-calculator#readme",
-
   "scripts": {
     "dev": "next dev",
     "build": "next build",
@@ -30,6 +29,7 @@
     "@radix-ui/react-switch": "^1.0.3",
     "class-variance-authority": "^0.7.0",
     "clsx": "^2.1.0",
+    "framer-motion": "^12.23.13",
     "lucide-react": "^0.367.0",
     "luxon": "^3.4.4",
     "next": "^14.2.21",

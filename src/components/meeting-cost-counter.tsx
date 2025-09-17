@@ -29,7 +29,7 @@ const MeetingCostCounter = ({ users }: { users: User[] }) => {
   }, [timeElapsed, totalPayRatePerSecond]);
 
   return (
-    <div className="text-4xl py-4 px-6 flex items-center">
+    <div className="inline-flex items-center gap-2 rounded-full border border-primary/20 bg-primary/10 px-6 py-3 text-3xl font-semibold text-primary shadow-inner shadow-primary/20">
       <span className="align-middle">$</span>
       <SlotCounter value={wastedAmount.toFixed(2)} />
     </div>
