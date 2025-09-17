@@ -29,9 +29,17 @@ const MeetingCostCounter = ({ users }: { users: User[] }) => {
   }, [timeElapsed, totalPayRatePerSecond]);
 
   return (
-    <div className="text-4xl py-4 px-6 flex items-center">
-      <span className="align-middle">$</span>
-      <SlotCounter value={wastedAmount.toFixed(2)} />
+    <div className="flex flex-col gap-2 text-emerald-100">
+      <p className="text-sm uppercase tracking-[0.4em] text-emerald-200/80">
+        Live meeting cost
+      </p>
+      <div className="flex items-center gap-3 text-4xl font-semibold">
+        <span className="align-middle text-5xl">$</span>
+        <SlotCounter value={wastedAmount.toFixed(2)} />
+      </div>
+      <p className="text-sm text-emerald-100/70">
+        Keep conversations intentional and celebrate time saved.
+      </p>
     </div>
   );
 };

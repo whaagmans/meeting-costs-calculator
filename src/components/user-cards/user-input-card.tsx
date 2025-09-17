@@ -64,14 +64,14 @@ const UserInputCard = ({
   };
 
   return (
-    <Card className="w-[350px] my-5">
+    <Card className="w-[350px] transform rounded-3xl border border-white/10 bg-slate-900/80 text-white shadow-xl shadow-slate-950/40 transition-transform duration-300 hover:-translate-y-1">
       <div className="flex justify-around">
         <CardHeader>
-          <CardTitle>Add meeting attender</CardTitle>
+          <CardTitle className="text-xl">Add meeting attender</CardTitle>
         </CardHeader>
         <Button
           onClick={() => removeForm(formKey)}
-          className="shrink-0 mt-2 mr-2"
+          className="mt-2 mr-2 shrink-0 text-white transition-transform hover:-translate-y-0.5"
           aria-label="Remove form"
           variant={'ghost'}
           size={'icon'}
@@ -90,6 +90,7 @@ const UserInputCard = ({
                 value={name}
                 onChange={(e) => setName(e.target.value)}
                 placeholder="Name of the attendee"
+                className="border-white/10 bg-white/10 text-white placeholder:text-slate-300 focus:border-fuchsia-400 focus:ring-0"
               />
             </div>
             <Separator />
@@ -107,12 +108,12 @@ const UserInputCard = ({
                   defaultValue={variant}
                 >
                   <SelectTrigger
-                    className="w-[180px]"
+                    className="w-[180px] border-white/10 bg-white/10 text-white focus:border-fuchsia-400 focus:ring-0"
                     aria-labelledby="pay-iteration-label"
                   >
                     <SelectValue placeholder="Select a variant" />
                   </SelectTrigger>
-                  <SelectContent>
+                  <SelectContent className="border-white/10 bg-slate-900 text-white">
                     <SelectGroup>
                       {Object.values(PaymentInterval).map((payVariant) => (
                         <SelectItem key={payVariant} value={payVariant}>
@@ -131,6 +132,7 @@ const UserInputCard = ({
                   placeholder="e.g. 18"
                   value={amount}
                   onChange={(e) => setAmount(e.target.value)}
+                  className="border-white/10 bg-white/10 text-white placeholder:text-slate-300 focus:border-fuchsia-400 focus:ring-0"
                 />
               </div>
             </div>
@@ -143,6 +145,7 @@ const UserInputCard = ({
                   value={hoursWorkedPerWeek}
                   onChange={(e) => setHoursWorkedPerWeek(e.target.value)}
                   placeholder="e.g. 36"
+                  className="border-white/10 bg-white/10 text-white placeholder:text-slate-300 focus:border-fuchsia-400 focus:ring-0"
                 />
               </div>
               <div className="items-center">
@@ -166,11 +169,20 @@ const UserInputCard = ({
           </div>
         </form>
       </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => removeForm(formKey)}>
+      <CardFooter className="flex justify-between text-white">
+        <Button
+          variant="outline"
+          className="border-white/20 bg-white/10 text-white transition-transform hover:-translate-y-0.5"
+          onClick={() => removeForm(formKey)}
+        >
           Cancel
         </Button>
-        <Button onClick={handleAddUser}>Add</Button>
+        <Button
+          className="bg-emerald-500 text-black shadow-lg shadow-emerald-700/40 transition-transform hover:-translate-y-0.5 hover:bg-emerald-400"
+          onClick={handleAddUser}
+        >
+          Add
+        </Button>
       </CardFooter>
     </Card>
   );

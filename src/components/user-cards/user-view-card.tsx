@@ -27,13 +27,13 @@ const UserViewCard = ({
   }, [payPerSecond, timeElapsed]);
 
   return (
-    <Card className="w-[350px] my-5">
+    <Card className="w-[350px] transform rounded-3xl border border-white/10 bg-slate-900/80 text-white shadow-xl shadow-slate-950/40 transition-transform duration-300 hover:-translate-y-1">
       <div className="flex justify-between">
         <CardHeader>
-          <CardTitle>{name}</CardTitle>
+          <CardTitle className="text-xl">{name}</CardTitle>
         </CardHeader>
         <Button
-          className={`shrink-0 mt-2 mr-2 ${isRunning ? 'hidden' : ''}`}
+          className={`mt-2 mr-2 shrink-0 text-white transition-transform hover:-translate-y-0.5 ${isRunning ? 'hidden' : ''}`}
           aria-label="edit user information"
           variant={'ghost'}
           disabled={isRunning}
@@ -45,20 +45,19 @@ const UserViewCard = ({
       </div>
 
       <CardContent>
-        <form>
-          <div className="grid w-full items-center gap-4">
-            <div className="flex flex-col space-y-1.5">
-              <Label htmlFor="pay">Your money</Label>
-              <h2 id="pay" className="text-xl">
-                {!isPayHidden ? `$${amount} ${payVariant}` : 'Hidden'}
-              </h2>
-              <div>
-                <span>Cost: $</span>
-                <SlotCounter value={moneyWasted.toFixed(2)} />
-              </div>
+        <div className="grid w-full items-center gap-4">
+          <div className="flex flex-col space-y-1.5">
+            <Label htmlFor="pay">Your money</Label>
+            <h2 id="pay" className="text-xl">
+              {!isPayHidden ? `$${amount} ${payVariant}` : 'Hidden'}
+            </h2>
+            <div className="mt-2 flex items-baseline gap-1 rounded-2xl border border-emerald-400/30 bg-emerald-500/10 px-3 py-2 text-lg text-emerald-100 shadow-inner">
+              <span>Cost:</span>
+              <span className="text-2xl font-semibold">$</span>
+              <SlotCounter value={moneyWasted.toFixed(2)} />
             </div>
           </div>
-        </form>
+        </div>
       </CardContent>
     </Card>
   );
