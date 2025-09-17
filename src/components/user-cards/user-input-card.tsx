@@ -21,6 +21,7 @@ import {
 import { PaymentInterval } from '@/enums/PaymentInterval';
 import { createUser } from '@/factory/user-factory';
 import { X } from 'lucide-react';
+import { AnimatePresence, motion } from 'framer-motion';
 import { useState } from 'react';
 import { Switch } from '../ui/switch';
 import { Separator } from '../ui/separator';
@@ -48,9 +49,18 @@ const UserInputCard = ({
   const [isPayHidden, setIsPayHidden] = useState<boolean>(
     user?.isPayHidden || false
   );
+  const [feedback, setFeedback] = useState<string | null>(null);
+
+  const isValidForm =
+    Number(amount) > 0 && Number(hoursWorkedPerWeek) > 0 && name.trim().length <= 100;
 
   const handleAddUser = () => {
-    const id = crypto.randomUUID();
+    if (!isValidForm) {
+      setFeedback('Please provide a pay rate and hours greater than 0.');
+      return;
+    }
+
+    const id = user?.id ?? crypto.randomUUID();
     const newUser = createUser(
       id,
       name,
@@ -64,23 +74,33 @@ const UserInputCard = ({
   };
 
   return (
-    <Card className="w-[350px] my-5">
-      <div className="flex justify-around">
-        <CardHeader>
-          <CardTitle>Add meeting attender</CardTitle>
-        </CardHeader>
-        <Button
-          onClick={() => removeForm(formKey)}
-          className="shrink-0 mt-2 mr-2"
-          aria-label="Remove form"
-          variant={'ghost'}
-          size={'icon'}
-        >
-          <X className="h-4 w-4" />
-        </Button>
-      </div>
-      <CardContent>
-        <form>
+    <motion.form
+      onSubmit={(event) => {
+        event.preventDefault();
+        handleAddUser();
+      }}
+      className="w-[350px]"
+      initial={{ opacity: 0, y: 12 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.3 }}
+    >
+      <Card className="border border-border/40 bg-background/70 shadow-xl backdrop-blur">
+        <div className="flex justify-around">
+          <CardHeader>
+            <CardTitle>Add meeting attender</CardTitle>
+          </CardHeader>
+          <Button
+            onClick={() => removeForm(formKey)}
+            className="shrink-0 mt-2 mr-2"
+            aria-label="Remove form"
+            variant={'ghost'}
+            size={'icon'}
+            type="button"
+          >
+            <X className="h-4 w-4" />
+          </Button>
+        </div>
+        <CardContent>
           <div className="grid w-full items-center gap-4">
             <div className="flex flex-col space-y-1.5">
               <Label htmlFor="name">Name</Label>
@@ -103,8 +123,11 @@ const UserInputCard = ({
                   Pay iteration
                 </Label>
                 <Select
-                  onValueChange={(e) => setVariant(e as PaymentInterval)}
-                  defaultValue={variant}
+                  onValueChange={(e) => {
+                    setVariant(e as PaymentInterval);
+                    setFeedback(null);
+                  }}
+                  value={variant}
                 >
                   <SelectTrigger
                     className="w-[180px]"
@@ -130,7 +153,10 @@ const UserInputCard = ({
                   id="amount"
                   placeholder="e.g. 18"
                   value={amount}
-                  onChange={(e) => setAmount(e.target.value)}
+                  onChange={(e) => {
+                    setAmount(e.target.value);
+                    setFeedback(null);
+                  }}
                 />
               </div>
             </div>
@@ -141,7 +167,10 @@ const UserInputCard = ({
                   id="hoursWorked"
                   type="number"
                   value={hoursWorkedPerWeek}
-                  onChange={(e) => setHoursWorkedPerWeek(e.target.value)}
+                  onChange={(e) => {
+                    setHoursWorkedPerWeek(e.target.value);
+                    setFeedback(null);
+                  }}
                   placeholder="e.g. 36"
                 />
               </div>
@@ -163,16 +192,31 @@ const UserInputCard = ({
               </div>
             </div>
             <Separator />
+            <AnimatePresence>
+              {feedback && (
+                <motion.p
+                  key={feedback}
+                  initial={{ opacity: 0, y: -6 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0, y: -6 }}
+                  className="text-sm text-destructive"
+                >
+                  {feedback}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
-        </form>
-      </CardContent>
-      <CardFooter className="flex justify-between">
-        <Button variant="outline" onClick={() => removeForm(formKey)}>
-          Cancel
-        </Button>
-        <Button onClick={handleAddUser}>Add</Button>
-      </CardFooter>
-    </Card>
+        </CardContent>
+        <CardFooter className="flex justify-between">
+          <Button variant="outline" onClick={() => removeForm(formKey)} type="button">
+            Cancel
+          </Button>
+          <Button type="submit" disabled={!isValidForm}>
+            Add
+          </Button>
+        </CardFooter>
+      </Card>
+    </motion.form>
   );
 };
 

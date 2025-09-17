@@ -1,14 +1,11 @@
 'use client';
 
-import MeetingDashboard from '@/components/meeting-dashboard';
-import { StopwatchProvider } from '@/components/useStopwatch';
+import HomePage from '@/components/home/home-page';
 
 export default function Home() {
   return (
-    <main className="relative">
-      <StopwatchProvider>
-        <MeetingDashboard />
-      </StopwatchProvider>
+    <main className="relative min-h-screen">
+      <HomePage />
     </main>
   );
 }
